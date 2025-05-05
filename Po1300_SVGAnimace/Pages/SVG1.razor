@@ -4,10 +4,34 @@
 
 <RadzenCard>
     <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
-        <RadzenButton Text="Přidat obrazec" Icon="add_circle" ButtonStyle="ButtonStyle.Primary" />
+        <RadzenButton Text="Přidat obrazec" Icon="add_circle" ButtonStyle="ButtonStyle.Primary" Click="PridatObrazec" />
     </RadzenStack>
 </RadzenCard>
 
+<RadzenCard class="my-2" Style=@($"width: {SVGWidth + 30}px;")>
+    <svg width="@SVGWidth" height="@SVGHeight" style="border: black solid;" xmlns="http://www.w3.org/2000/svg">
+        @foreach (var item in SVGObrazceList)
+        {
+            @switch (item.TypTvaru)
+            {
+				case TypTvaru.Ctverec:
+					Models.Ctverec obrazTyp = (Models.Ctverec)item;
+                    <rect width="@obrazTyp.StranaA" height="@obrazTyp.StranaA" x="@obrazTyp.PozX" y="@obrazTyp.PozY" style="fill:rgb(@obrazTyp.Barva.R,@obrazTyp.Barva.G,@obrazTyp.Barva.B);stroke-width:2;stroke:black" />
+					break;
+                case TypTvaru.Obdelnik:
+                    Models.Obdelnik obdelnik = (Models.Obdelnik)item;
+                    <rect width="@obdelnik.StranaA" height="@obdelnik.StranaB" x="@obdelnik.PozX" y="@obdelnik.PozY" style="fill:rgb(@obdelnik.Barva.R,@obdelnik.Barva.G,@obdelnik.Barva.B);stroke-width:2;stroke:black" />
+                    break;
+                case TypTvaru.Kruh:
+                    Models.Kruh kruh = (Models.Kruh)item;
+                    <circle r="@kruh.Polomer" cx="@kruh.PozX" cy="@kruh.PozY" style="fill:rgb(@kruh.Barva.R,@kruh.Barva.G,@kruh.Barva.B)" stroke="black" stroke-width="2" />
+                    break;
+            }
+        }
+
+        
+    </svg>
+</RadzenCard>
 @code {
 
 }
